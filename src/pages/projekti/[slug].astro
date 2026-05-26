@@ -11,7 +11,7 @@ const { project } = Astro.props;
 const { Content } = await project.render();
 
 const members = await getCollection('members');
-const authorMember = members.find(m => m.data.ime === project.data.avtor);
+const memberMap = Object.fromEntries(members.map(m => [m.data.ime, m.slug]));
 
 const machines = await getCollection('machines');
 const machineMap = Object.fromEntries(machines.map(m => [m.data.ime, m.slug]));
@@ -40,11 +40,16 @@ const dateStr = project.data.datum.toLocaleDateString('sl-SI', { day: 'numeric',
       <h1 class="text-3xl font-bold text-lab-text mb-4">{project.data.naslov}</h1>
       <div class="flex flex-wrap gap-6 text-xs text-lab-muted">
         <div>
-          <span class="text-lab-orange mr-1">Avtor</span>
-          {authorMember
-            ? <a href={`/clani/${authorMember.slug}`} class="hover:text-lab-text transition-colors">{project.data.avtor}</a>
-            : <span>{project.data.avtor}</span>
-          }
+          <span class="text-lab-orange mr-1">{project.data.avtor.length > 1 ? 'Avtorji' : 'Avtor'}</span>
+          {project.data.avtor.map((name, i) => (
+            <>
+              {i > 0 && <span class="mr-0.5">,</span>}
+              {memberMap[name]
+                ? <a href={`/clani/${memberMap[name]}`} class="hover:text-lab-text transition-colors">{name}</a>
+                : <span>{name}</span>
+              }
+            </>
+          ))}
         </div>
         <div>
           <span class="text-lab-orange mr-1">Datum</span>
@@ -52,6 +57,13 @@ const dateStr = project.data.datum.toLocaleDateString('sl-SI', { day: 'numeric',
         </div>
       </div>
     </header>
+
+    <!-- Hero image -->
+    {project.data.slika && (
+      <div class="mb-8 rounded-lg overflow-hidden border border-lab-border">
+        <img src={project.data.slika} alt={project.data.naslov} class="w-full object-cover max-h-96" />
+      </div>
+    )}
 
     <!-- Machines used -->
     {project.data.stroji.length > 0 && (
@@ -78,5 +90,61 @@ const dateStr = project.data.datum.toLocaleDateString('sl-SI', { day: 'numeric',
       <Content />
     </div>
 
+    <!-- Gallery -->
+    {(() => {
+      const imgs = project.data.galerija.length > 0
+        ? project.data.galerija
+        : project.data.slika ? [project.data.slika] : [];
+      return imgs.length > 0 && (
+        <div class="mt-10 border-t border-lab-border pt-8">
+          <h2 class="text-xs uppercase tracking-widest text-lab-muted mb-4">Galerija</h2>
+          <div class="grid grid-cols-3 gap-2">
+            {imgs.map(src => (
+              <button
+                class="rounded overflow-hidden border border-lab-border aspect-square cursor-zoom-in hover:border-lab-orange transition-colors"
+                data-lightbox={src}
+              >
+                <img src={src} alt={project.data.naslov} class="w-full h-full object-cover" />
+              </button>
+            ))}
+          </div>
+        </div>
+      );
+    })()}
+
   </div>
 </Base>
+
+<!-- Lightbox -->
+<div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 p-4" role="dialog" aria-modal="true">
+  <button id="lightbox-close" class="absolute top-4 right-5 text-white/60 hover:text-white text-2xl leading-none">✕</button>
+  <img id="lightbox-img" src="" alt="" class="max-w-full max-h-full object-contain rounded" />
+</div>
+
+<script>
+  const lightbox  = document.getElementById('lightbox')!;
+  const lbImg     = document.getElementById('lightbox-img') as HTMLImageElement;
+  const lbClose   = document.getElementById('lightbox-close')!;
+
+  function open(src: string, alt: string) {
+    lbImg.src = src;
+    lbImg.alt = alt;
+    lightbox.classList.remove('hidden');
+    lightbox.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lightbox.classList.add('hidden');
+    lightbox.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-lightbox]').forEach(btn => {
+    btn.addEventListener('click', () => open(btn.dataset.lightbox!, btn.querySelector('img')!.alt));
+  });
+
+  lbClose.addEventListener('click', close);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+</script>

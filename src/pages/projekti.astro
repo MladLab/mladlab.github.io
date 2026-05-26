@@ -49,7 +49,7 @@ const allTags = [...new Set(projects.flatMap(p => p.data.tags))].sort();
             slug={p.slug}
             naslov={p.data.naslov}
             avtor={p.data.avtor}
-            authorSlug={nameToSlug[p.data.avtor]}
+            authorSlugs={nameToSlug}
             datum={p.data.datum}
             tags={p.data.tags}
             opis={p.data.opis}

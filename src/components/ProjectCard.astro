@@ -2,15 +2,15 @@
 interface Props {
   slug: string;
   naslov: string;
-  avtor: string;
-  authorSlug?: string;
+  avtor: string[];
+  authorSlugs?: Record<string, string>;
   datum: Date;
   tags: string[];
   opis: string;
   slika?: string;
 }
 
-const { slug, naslov, avtor, authorSlug, datum, tags, opis, slika } = Astro.props;
+const { slug, naslov, avtor, authorSlugs, datum, tags, opis, slika } = Astro.props;
 
 const dateStr = datum.toLocaleDateString('sl-SI', { day: 'numeric', month: 'numeric', year: 'numeric' });
 ---
@@ -47,10 +47,17 @@ const dateStr = datum.toLocaleDateString('sl-SI', { day: 'numeric', month: 'nume
       ))}
     </div>
     <div class="flex justify-between items-center text-xs text-lab-muted pt-1">
-      {authorSlug
-        ? <a href={`/clani/${authorSlug}`} class="hover:text-lab-orange transition-colors">{avtor}</a>
-        : <span>{avtor}</span>
-      }
+      <span>
+        {avtor.map((name, i) => (
+          <>
+            {i > 0 && <span class="mr-0.5">,</span>}
+            {authorSlugs?.[name]
+              ? <a href={`/clani/${authorSlugs[name]}`} class="hover:text-lab-orange transition-colors">{name}</a>
+              : <span>{name}</span>
+            }
+          </>
+        ))}
+      </span>
       <span>{dateStr}</span>
     </div>
   </div>

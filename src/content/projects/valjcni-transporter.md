@@ -1,10 +1,17 @@
 ---
 naslov: "Valjčni transporter z vodili"
-avtor: "Luka Colarič"
+avtor:
+  - "Luka Colarič"
+  - "Tim Zorman"
 datum: 2026-05-26
 tags: ["CAD", "strojništvo", "oblikovanje"]
 stroji: []
 slika: "/projekti/transportni-trak.png"
+galerija:
+  - /projekti/transportni-trak.png
+  - /projekti/transportni-trak.png
+  - /projekti/transportni-trak.png
+  - /projekti/transportni-trak.png
 opis: "3D model gravitacijskega valjčnega transporterja z dvema sekcijama pod kotom in vodilnimi stebri. Modelirana je tudi putanja objekta pri prehodu med sekcijama."
 ---
 

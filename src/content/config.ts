@@ -4,11 +4,12 @@ const projects = defineCollection({
   type: 'content',
   schema: z.object({
     naslov: z.string(),
-    avtor: z.string(),
+    avtor: z.union([z.string(), z.array(z.string())]).transform(v => Array.isArray(v) ? v : [v]),
     datum: z.coerce.date(),
     tags: z.array(z.string()),
     stroji: z.array(z.string()).default([]),
     slika: z.string().optional(),
+    galerija: z.array(z.string()).default([]),
     opis: z.string(),
   }),
 });

@@ -12,8 +12,11 @@ const { member } = Astro.props;
 const { Content } = await member.render();
 
 const allProjects = await getCollection('projects');
+const allMembers = await getCollection('members');
+const memberNameToSlug = Object.fromEntries(allMembers.map(m => [m.data.ime, m.slug]));
+
 const memberProjects = allProjects
-  .filter(p => p.data.avtor === member.data.ime)
+  .filter(p => p.data.avtor.includes(member.data.ime))
   .sort((a, b) => b.data.datum.valueOf() - a.data.datum.valueOf());
 
 const statusLabel = member.data.status === 'current' ? 'Aktiven/-na' : 'Alumni';
@@ -71,6 +74,7 @@ const statusLabel = member.data.status === 'current' ? 'Aktiven/-na' : 'Alumni';
             slug={p.slug}
             naslov={p.data.naslov}
             avtor={p.data.avtor}
+            authorSlugs={memberNameToSlug}
             datum={p.data.datum}
             tags={p.data.tags}
             opis={p.data.opis}
