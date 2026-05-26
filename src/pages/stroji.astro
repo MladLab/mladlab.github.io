@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import MachineCard from '../components/MachineCard.astro';
+import PrinterWidget from '../components/PrinterWidget.astro';
+import { getCollection } from 'astro:content';
+
+const machines = await getCollection('machines');
+const tools    = await getCollection('tools');
+---
+
+<Base title="Stroji">
+  <div class="max-w-6xl mx-auto px-4 py-12">
+
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-lab-text mb-1">Stroji in orodja</h1>
+      <p class="text-sm text-lab-muted">Oprema MladLab</p>
+    </div>
+
+    <!-- Live printer status -->
+    <div class="mb-10">
+      <h2 class="text-xs uppercase tracking-widest text-lab-muted mb-3">3D Farm · v živo</h2>
+      <PrinterWidget compact />
+    </div>
+
+    <!-- Machines grid -->
+    <section class="mb-12">
+      <h2 class="text-xs uppercase tracking-widest text-lab-muted mb-4">Stroji</h2>
+      {machines.length === 0 && <p class="text-sm text-lab-muted">Ni strojev.</p>}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {machines.map(m => (
+          <MachineCard
+            slug={m.slug}
+            ime={m.data.ime}
+            tip={m.data.tip}
+            status={m.data.status}
+            opis={m.data.opis}
+            specifikacije={m.data.specifikacije}
+            slika={m.data.slika}
+          />
+        ))}
+      </div>
+    </section>
+
+    <!-- Tools grid -->
+    <section>
+      <h2 class="text-xs uppercase tracking-widest text-lab-muted mb-4">Orodja</h2>
+      {tools.length === 0 && <p class="text-sm text-lab-muted">Ni orodij.</p>}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {tools.map(t => (
+          <div class="bg-lab-surface border border-lab-border rounded p-3 hover:border-lab-orange transition-colors group">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <h3 class="font-semibold text-sm text-lab-text">{t.data.ime}</h3>
+                <p class="text-xs text-lab-muted">{t.data.tip}</p>
+              </div>
+              <span class={`w-2 h-2 rounded-full mt-1 shrink-0 ${
+                t.data.status === 'aktivno' ? 'bg-green-500' :
+                t.data.status === 'v_popravilu' ? 'bg-yellow-500' : 'bg-red-500'
+              }`}></span>
+            </div>
+            <p class="text-xs text-lab-muted mt-2">{t.data.opis}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+  </div>
+</Base>

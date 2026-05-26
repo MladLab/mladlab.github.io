@@ -1,0 +1,101 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const machines = await getCollection('machines');
+  return machines.map(m => ({ params: { slug: m.slug }, props: { machine: m } }));
+}
+
+const { machine } = Astro.props;
+const { Content } = await machine.render();
+
+const members = await getCollection('members');
+const nameToSlug = Object.fromEntries(members.map(m => [m.data.ime, m.slug]));
+
+const allProjects = await getCollection('projects');
+const machineProjects = allProjects
+  .filter(p => p.data.stroji.includes(machine.data.ime))
+  .sort((a, b) => b.data.datum.valueOf() - a.data.datum.valueOf());
+
+const statusMap = {
+  aktivno:      { label: 'Aktivno',      cls: 'bg-green-500' },
+  v_popravilu:  { label: 'V popravilu',  cls: 'bg-yellow-500' },
+  nedosegljivo: { label: 'Nedosegljivo', cls: 'bg-red-500' },
+};
+const s = statusMap[machine.data.status];
+---
+
+<Base title={machine.data.ime}>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
+    <a href="/stroji" class="text-xs text-lab-muted hover:text-lab-orange transition-colors mb-8 inline-block">← Vsi stroji</a>
+
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-2">
+        <h1 class="text-3xl font-bold text-lab-text">{machine.data.ime}</h1>
+        <span class="flex items-center gap-1.5 text-xs text-lab-muted">
+          <span class={`w-2 h-2 rounded-full ${s.cls}`}></span>
+          {s.label}
+        </span>
+      </div>
+      <p class="text-sm text-lab-muted">{machine.data.tip}</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+      <!-- Description + content -->
+      <div>
+        <p class="text-sm text-lab-muted mb-4">{machine.data.opis}</p>
+        <div class="prose prose-invert prose-sm max-w-none text-lab-muted leading-relaxed
+          [&_h2]:text-lab-text [&_h2]:font-semibold [&_h2]:text-base [&_h2]:mt-4 [&_h2]:mb-1
+          [&_strong]:text-lab-text [&_a]:text-lab-orange
+          [&_p]:mt-2
+        ">
+          <Content />
+        </div>
+      </div>
+
+      <!-- Specs -->
+      {machine.data.specifikacije && Object.keys(machine.data.specifikacije).length > 0 && (
+        <div class="bg-lab-surface border border-lab-border rounded p-4 self-start">
+          <h2 class="text-xs uppercase tracking-widest text-lab-muted mb-3">Specifikacije</h2>
+          <dl class="flex flex-col gap-2">
+            {Object.entries(machine.data.specifikacije).map(([k, v]) => (
+              <div class="flex flex-col">
+                <dt class="text-xs text-lab-muted">{k}</dt>
+                <dd class="text-sm text-lab-text">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
+    </div>
+
+    <!-- Projects that used this machine -->
+    <section>
+      <h2 class="text-xs uppercase tracking-widest text-lab-muted mb-4">
+        Projekti na tem stroju ({machineProjects.length})
+      </h2>
+      {machineProjects.length === 0 && (
+        <p class="text-sm text-lab-muted">Še ni projektov s tem strojem.</p>
+      )}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {machineProjects.map(p => (
+          <ProjectCard
+            slug={p.slug}
+            naslov={p.data.naslov}
+            avtor={p.data.avtor}
+            authorSlug={nameToSlug[p.data.avtor]}
+            datum={p.data.datum}
+            tags={p.data.tags}
+            opis={p.data.opis}
+            slika={p.data.slika}
+          />
+        ))}
+      </div>
+    </section>
+
+  </div>
+</Base>

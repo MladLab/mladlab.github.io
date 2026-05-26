@@ -1,0 +1,72 @@
+---
+interface Props {
+  slug?: string;
+  ime: string;
+  tip: string;
+  status: 'aktivno' | 'v_popravilu' | 'nedosegljivo';
+  opis: string;
+  specifikacije?: Record<string, string>;
+  slika?: string;
+}
+
+const { slug, ime, tip, status, opis, specifikacije, slika } = Astro.props;
+
+const statusMap = {
+  aktivno:      { label: 'Aktivno',      dot: 'bg-green-500' },
+  v_popravilu:  { label: 'V popravilu',  dot: 'bg-yellow-500' },
+  nedosegljivo: { label: 'Nedosegljivo', dot: 'bg-red-500' },
+};
+const s = statusMap[status];
+
+const Tag = slug ? 'a' : 'article';
+const linkProps = slug ? { href: `/stroji/${slug}` } : {};
+---
+
+<article class="bg-lab-surface border border-lab-border rounded hover:border-lab-orange transition-colors group">
+  {slika && (
+    <div class="aspect-video overflow-hidden rounded-t bg-lab-edge">
+      {slug
+        ? <a href={`/stroji/${slug}`}><img src={slika} alt={ime} class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity" loading="lazy" /></a>
+        : <img src={slika} alt={ime} class="w-full h-full object-cover opacity-70" loading="lazy" />
+      }
+    </div>
+  )}
+  {!slika && (
+    <div class="aspect-video rounded-t bg-lab-edge flex items-center justify-center">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2a2a2a" stroke-width="1"><rect x="2" y="6" width="20" height="14" rx="1"/><path d="M8 6V4h8v2"/><circle cx="12" cy="13" r="3"/></svg>
+    </div>
+  )}
+  <div class="p-4 flex flex-col gap-2">
+    <div class="flex items-start justify-between gap-2">
+      <div>
+        <h3 class="font-semibold">
+          {slug
+            ? <a href={`/stroji/${slug}`} class="text-lab-text group-hover:text-lab-orange transition-colors">{ime}</a>
+            : <span class="text-lab-text">{ime}</span>
+          }
+        </h3>
+        <p class="text-xs text-lab-muted">{tip}</p>
+      </div>
+      <span class="flex items-center gap-1.5 text-xs text-lab-muted shrink-0">
+        <span class={`w-1.5 h-1.5 rounded-full ${s.dot}`}></span>
+        {s.label}
+      </span>
+    </div>
+    <p class="text-xs text-lab-muted">{opis}</p>
+    {specifikacije && Object.keys(specifikacije).length > 0 && (
+      <dl class="grid grid-cols-2 gap-x-4 gap-y-1 mt-1 border-t border-lab-border pt-2">
+        {Object.entries(specifikacije).map(([k, v]) => (
+          <>
+            <dt class="text-xs text-lab-muted">{k}</dt>
+            <dd class="text-xs text-lab-text">{v}</dd>
+          </>
+        ))}
+      </dl>
+    )}
+    {slug && (
+      <a href={`/stroji/${slug}`} class="text-xs text-lab-orange hover:text-lab-orange2 transition-colors mt-1">
+        Več →
+      </a>
+    )}
+  </div>
+</article>

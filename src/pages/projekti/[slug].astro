@@ -1,0 +1,82 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(p => ({ params: { slug: p.slug }, props: { project: p } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+
+const members = await getCollection('members');
+const authorMember = members.find(m => m.data.ime === project.data.avtor);
+
+const machines = await getCollection('machines');
+const machineMap = Object.fromEntries(machines.map(m => [m.data.ime, m.slug]));
+
+const dateStr = project.data.datum.toLocaleDateString('sl-SI', { day: 'numeric', month: 'numeric', year: 'numeric' });
+---
+
+<Base title={project.data.naslov}>
+  <div class="max-w-3xl mx-auto px-4 py-12">
+
+    <!-- Back -->
+    <a href="/projekti" class="text-xs text-lab-muted hover:text-lab-orange transition-colors mb-8 inline-block">← Vsi projekti</a>
+
+    <!-- Header -->
+    <header class="mb-8">
+      <div class="flex flex-wrap gap-1 mb-3">
+        {project.data.tags.map(tag => (
+          <a
+            href={`/projekti?tag=${encodeURIComponent(tag)}`}
+            class="text-xs px-1.5 py-0.5 rounded-sm bg-lab-edge text-lab-muted border border-lab-border hover:border-lab-orange hover:text-lab-text transition-colors"
+          >
+            {tag}
+          </a>
+        ))}
+      </div>
+      <h1 class="text-3xl font-bold text-lab-text mb-4">{project.data.naslov}</h1>
+      <div class="flex flex-wrap gap-6 text-xs text-lab-muted">
+        <div>
+          <span class="text-lab-orange mr-1">Avtor</span>
+          {authorMember
+            ? <a href={`/clani/${authorMember.slug}`} class="hover:text-lab-text transition-colors">{project.data.avtor}</a>
+            : <span>{project.data.avtor}</span>
+          }
+        </div>
+        <div>
+          <span class="text-lab-orange mr-1">Datum</span>
+          {dateStr}
+        </div>
+      </div>
+    </header>
+
+    <!-- Machines used -->
+    {project.data.stroji.length > 0 && (
+      <div class="flex flex-wrap gap-2 mb-8 p-3 bg-lab-surface border border-lab-border rounded">
+        <span class="text-xs text-lab-muted mr-1">Stroji:</span>
+        {project.data.stroji.map(ime => {
+          const slug = machineMap[ime];
+          return slug
+            ? <a href={`/stroji/${slug}`} class="text-xs text-lab-orange hover:text-lab-orange2 transition-colors">{ime}</a>
+            : <span class="text-xs text-lab-muted">{ime}</span>;
+        })}
+      </div>
+    )}
+
+    <!-- Content -->
+    <div class="prose prose-invert prose-sm max-w-none text-lab-muted leading-relaxed
+      [&_h2]:text-lab-text [&_h2]:font-semibold [&_h2]:text-base [&_h2]:mt-8 [&_h2]:mb-2
+      [&_h3]:text-lab-text [&_h3]:font-semibold [&_h3]:text-sm [&_h3]:mt-6 [&_h3]:mb-1
+      [&_a]:text-lab-orange [&_a:hover]:text-lab-orange2
+      [&_strong]:text-lab-text
+      [&_li]:marker:text-lab-orange
+      [&_code]:bg-lab-edge [&_code]:px-1 [&_code]:rounded [&_code]:text-xs [&_code]:text-lab-text
+    ">
+      <Content />
+    </div>
+
+  </div>
+</Base>

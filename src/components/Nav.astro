@@ -1,0 +1,80 @@
+---
+const links = [
+  { href: '/',         label: 'Domov'   },
+  { href: '/projekti', label: 'Projekti' },
+  { href: '/stroji',   label: 'Stroji'   },
+  { href: '/clani',    label: 'Člani'    },
+  { href: '/o-nas',    label: 'O nas'    },
+];
+
+const current = Astro.url.pathname;
+---
+
+<header class="border-b border-lab-border bg-lab-surface sticky top-0 z-50">
+  <nav class="max-w-6xl mx-auto px-4 flex items-center justify-between h-14">
+    <a href="/" class="flex items-center gap-2.5 group">
+      <span class="bg-lab-orange text-black font-bold text-sm px-1.5 py-0.5 rounded-sm group-hover:bg-lab-orange2 transition-colors">ML</span>
+      <span class="font-semibold tracking-tight text-lab-text">MladLab</span>
+    </a>
+
+    <ul class="hidden sm:flex items-center gap-1">
+      {links.map(({ href, label }) => {
+        const active = href === '/' ? current === '/' : current.startsWith(href);
+        return (
+          <li>
+            <a
+              href={href}
+              class={`px-3 py-1.5 text-sm rounded transition-colors ${
+                active
+                  ? 'text-lab-orange bg-lab-edge'
+                  : 'text-lab-muted hover:text-lab-text hover:bg-lab-edge'
+              }`}
+            >
+              {label}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+
+    <button id="menu-toggle" class="sm:hidden text-lab-muted hover:text-lab-text p-1" aria-label="Meni">
+      <svg id="icon-open"  width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6"  x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg id="icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </nav>
+
+  <div id="mobile-menu" class="sm:hidden hidden border-t border-lab-border">
+    <ul class="flex flex-col px-4 py-2 gap-1">
+      {links.map(({ href, label }) => {
+        const active = href === '/' ? current === '/' : current.startsWith(href);
+        return (
+          <li>
+            <a
+              href={href}
+              class={`block px-3 py-2 text-sm rounded transition-colors ${
+                active
+                  ? 'text-lab-orange bg-lab-edge'
+                  : 'text-lab-muted hover:text-lab-text hover:bg-lab-edge'
+              }`}
+            >
+              {label}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle')!;
+  const menu   = document.getElementById('mobile-menu')!;
+  const iconO  = document.getElementById('icon-open')!;
+  const iconC  = document.getElementById('icon-close')!;
+
+  toggle.addEventListener('click', () => {
+    const open = menu.classList.toggle('hidden');
+    iconO.classList.toggle('hidden', !open);
+    iconC.classList.toggle('hidden', open);
+  });
+</script>

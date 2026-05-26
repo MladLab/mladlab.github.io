@@ -1,0 +1,174 @@
+---
+// API is HTTP-only — works on dev/HTTP; on HTTPS GitHub Pages browsers will block mixed content.
+// To fix for production: put a CORS/HTTPS proxy in front of the API.
+const API_URL = 'http://95.87.148.212:9988/api/v1/print-log/?limit=500';
+const API_KEY = 'bb_c-KPvHVRAYKY4mJA7t1zQSu76w129RwyQnCmfFRXDM0';
+---
+
+<div class="bg-lab-surface border border-lab-border rounded-lg p-5" aria-live="polite">
+
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-5">
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-lab-muted" id="fw-dot"></span>
+      <span class="text-xs font-semibold uppercase tracking-widest text-lab-muted">3D Farm · statistika</span>
+    </div>
+    <span id="fw-since" class="text-xs text-lab-muted hidden"></span>
+  </div>
+
+  <!-- Loading -->
+  <p id="fw-loading" class="text-sm text-lab-muted">Nalagam statistiko…</p>
+
+  <!-- Error -->
+  <p id="fw-error" class="hidden text-sm text-lab-muted italic">podatki nedosegljivi</p>
+
+  <!-- Stats -->
+  <div id="fw-stats" class="hidden">
+
+    <!-- Big headline numbers -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-5">
+      <div>
+        <div class="text-2xl font-bold text-lab-orange" id="fw-kg">—</div>
+        <div class="text-xs text-lab-muted mt-0.5">kg filamenta</div>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-lab-text" id="fw-hours">—</div>
+        <div class="text-xs text-lab-muted mt-0.5">ur tiskanja</div>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-lab-text" id="fw-prints">—</div>
+        <div class="text-xs text-lab-muted mt-0.5">dokončanih tiskov</div>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-lab-text" id="fw-success">—</div>
+        <div class="text-xs text-lab-muted mt-0.5">uspešnost</div>
+      </div>
+    </div>
+
+    <!-- Fun fact bar + material split -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 border-t border-lab-border pt-4">
+
+      <!-- Material split -->
+      <div>
+        <div class="text-xs text-lab-muted mb-2">Material</div>
+        <div id="fw-materials" class="flex flex-col gap-1.5"></div>
+      </div>
+
+      <!-- Fun facts -->
+      <div class="flex flex-col gap-1.5">
+        <div class="text-xs text-lab-muted mb-0.5">Zanimivosti</div>
+        <div class="text-xs text-lab-muted flex justify-between">
+          <span>Povprečen tisk</span>
+          <span id="fw-avg" class="text-lab-text">—</span>
+        </div>
+        <div class="text-xs text-lab-muted flex justify-between">
+          <span>Najdaljši tisk</span>
+          <span id="fw-longest" class="text-lab-text">—</span>
+        </div>
+        <div class="text-xs text-lab-muted flex justify-between">
+          <span>Največ tiskov</span>
+          <span id="fw-topprinter" class="text-lab-text truncate max-w-[12rem]">—</span>
+        </div>
+        <div class="text-xs text-lab-muted flex justify-between">
+          <span>Skupaj tiskalnikov</span>
+          <span id="fw-printers" class="text-lab-text">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ API_URL, API_KEY }}>
+  async function loadStats() {
+    const dot        = document.getElementById('fw-dot');
+    const loading    = document.getElementById('fw-loading');
+    const error      = document.getElementById('fw-error');
+    const stats      = document.getElementById('fw-stats');
+    const elSince    = document.getElementById('fw-since');
+    const elKg       = document.getElementById('fw-kg');
+    const elHours    = document.getElementById('fw-hours');
+    const elPrints   = document.getElementById('fw-prints');
+    const elSuccess  = document.getElementById('fw-success');
+    const elAvg      = document.getElementById('fw-avg');
+    const elLongest  = document.getElementById('fw-longest');
+    const elTop      = document.getElementById('fw-topprinter');
+    const elPrinters = document.getElementById('fw-printers');
+    const elMats     = document.getElementById('fw-materials');
+
+    try {
+      const res = await fetch(API_URL, {
+        headers: { 'X-Api-Key': API_KEY },
+        signal: AbortSignal.timeout(8000),
+      });
+      if (!res.ok) throw new Error('bad status');
+      const { items } = await res.json();
+
+      const completed = items.filter(i => i.status === 'completed');
+      const withGrams = completed.filter(i => i.filament_used_grams > 0);
+      const totalG    = withGrams.reduce((s, i) => s + i.filament_used_grams, 0);
+      const totalSec  = items.reduce((s, i) => s + (i.duration_seconds || 0), 0);
+      const successPct= Math.round((completed.length / items.filter(i => i.status !== null).length) * 100);
+      const avgG      = withGrams.length ? totalG / withGrams.length : 0;
+      const longestSec= Math.max(...items.map(i => i.duration_seconds || 0));
+
+      // Material breakdown
+      const mats = {};
+      withGrams.forEach(i => {
+        const t = i.filament_type || 'Neznano';
+        mats[t] = (mats[t] || 0) + i.filament_used_grams;
+      });
+
+      // Most active printer (by count)
+      const pCounts = {};
+      items.forEach(i => { pCounts[i.printer_name] = (pCounts[i.printer_name] || 0) + 1; });
+      const topPrinter = Object.entries(pCounts).sort((a, b) => b[1] - a[1])[0];
+      const printerCount = Object.keys(pCounts).length;
+
+      // Earliest date
+      const dates = items.map(i => new Date(i.started_at)).filter(Boolean);
+      const earliest = new Date(Math.min(...dates));
+      const sinceStr = earliest.toLocaleDateString('sl-SI', { day: 'numeric', month: 'numeric', year: 'numeric' });
+
+      // Fill in
+      elKg.textContent       = (totalG / 1000).toFixed(2);
+      elHours.textContent    = (totalSec / 3600).toFixed(0);
+      elPrints.textContent   = String(completed.length);
+      elSuccess.textContent  = `${successPct}%`;
+      elAvg.textContent      = `${avgG.toFixed(0)} g`;
+      elLongest.textContent  = `${(longestSec / 3600).toFixed(1)} h`;
+      elTop.textContent      = `${topPrinter[0]} (${topPrinter[1]}×)`;
+      elPrinters.textContent = String(printerCount);
+      elSince.textContent    = `od ${sinceStr}`;
+      elSince.classList.remove('hidden');
+
+      // Material bars
+      const total = Object.values(mats).reduce((s, v) => s + v, 0);
+      const colors = ['text-lab-orange', 'text-lab-text', 'text-green-400', 'text-blue-400'];
+      const barColors = ['bg-lab-orange', 'bg-lab-text', 'bg-green-400', 'bg-blue-400'];
+      elMats.innerHTML = Object.entries(mats)
+        .sort((a, b) => b[1] - a[1])
+        .map(([name, g], i) => {
+          const pct = Math.round((g / total) * 100);
+          return `
+            <div>
+              <div class="flex justify-between text-xs mb-0.5">
+                <span class="${colors[i] || 'text-lab-muted'}">${name}</span>
+                <span class="text-lab-muted">${(g / 1000).toFixed(2)} kg · ${pct}%</span>
+              </div>
+              <div class="h-1 bg-lab-border rounded-full overflow-hidden">
+                <div class="${barColors[i] || 'bg-lab-muted'} h-full rounded-full" style="width:${pct}%"></div>
+              </div>
+            </div>`;
+        }).join('');
+
+      dot.classList.replace('bg-lab-muted', 'bg-green-500');
+      loading.classList.add('hidden');
+      stats.classList.remove('hidden');
+    } catch {
+      loading.classList.add('hidden');
+      error.classList.remove('hidden');
+    }
+  }
+
+  loadStats();
+</script>

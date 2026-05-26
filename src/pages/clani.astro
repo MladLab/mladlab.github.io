@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import MemberCard from '../components/MemberCard.astro';
+import { getCollection } from 'astro:content';
+
+const all     = await getCollection('members');
+const current = all.filter(m => m.data.status === 'current').sort((a, b) => a.data.leto_od - b.data.leto_od);
+const alumni  = all.filter(m => m.data.status === 'alumni').sort((a, b) => (b.data.leto_do ?? 9999) - (a.data.leto_do ?? 9999));
+---
+
+<Base title="Člani">
+  <div class="max-w-6xl mx-auto px-4 py-12">
+
+    <div class="mb-10">
+      <h1 class="text-3xl font-bold text-lab-text mb-1">Člani</h1>
+      <p class="text-sm text-lab-muted">Ekipa MladLab</p>
+    </div>
+
+    <!-- Active members -->
+    <section class="mb-12">
+      <h2 class="text-xs uppercase tracking-widest text-lab-muted mb-4">Aktivni člani</h2>
+      {current.length === 0 && <p class="text-sm text-lab-muted">Ni aktivnih članov.</p>}
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {current.map(m => (
+          <MemberCard
+            slug={m.slug}
+            ime={m.data.ime}
+            vloga={m.data.vloga}
+            leto_od={m.data.leto_od}
+            leto_do={m.data.leto_do}
+            opis={m.data.opis}
+            slika={m.data.slika}
+          />
+        ))}
+      </div>
+    </section>
+
+    <!-- Alumni -->
+    {alumni.length > 0 && (
+      <section>
+        <h2 class="text-xs uppercase tracking-widest text-lab-muted mb-4">Alumni</h2>
+        <div class="flex flex-col border border-lab-border rounded overflow-hidden">
+          {alumni.map((m, i) => (
+            <a
+              href={`/clani/${m.slug}`}
+              class={`flex items-center justify-between px-4 py-3 text-sm gap-4 ${i > 0 ? 'border-t border-lab-border' : ''} hover:bg-lab-edge hover:text-lab-orange transition-colors`}
+            >
+              <span class="text-lab-text font-medium">{m.data.ime}</span>
+              <span class="text-lab-muted text-xs shrink-0">{m.data.vloga}</span>
+              <span class="text-lab-muted text-xs shrink-0">{m.data.leto_od}–{m.data.leto_do ?? ''}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
+</Base>

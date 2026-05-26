@@ -1,0 +1,100 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const projects = allProjects.sort((a, b) => b.data.datum.valueOf() - a.data.datum.valueOf());
+
+const members = await getCollection('members');
+const nameToSlug = Object.fromEntries(members.map(m => [m.data.ime, m.slug]));
+
+const allTags = [...new Set(projects.flatMap(p => p.data.tags))].sort();
+---
+
+<Base title="Projekti">
+  <div class="max-w-6xl mx-auto px-4 py-12">
+
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-lab-text mb-1">Projekti</h1>
+      <p class="text-sm text-lab-muted">Dela članov MladLab</p>
+    </div>
+
+    <!-- Tag filter -->
+    <div class="flex flex-wrap gap-2 mb-8" id="tag-filters" role="group" aria-label="Filtriraj po oznaki">
+      <button
+        class="tag-btn text-xs px-3 py-1 rounded-sm border transition-colors border-lab-orange bg-lab-orange text-black"
+        data-tag="vse"
+      >
+        Vse
+      </button>
+      {allTags.map(tag => (
+        <button
+          class="tag-btn text-xs px-3 py-1 rounded-sm border transition-colors border-lab-border text-lab-muted hover:border-lab-orange hover:text-lab-text"
+          data-tag={tag}
+        >
+          {tag}
+        </button>
+      ))}
+    </div>
+
+    {projects.length === 0 && (
+      <p class="text-sm text-lab-muted">Še ni projektov.</p>
+    )}
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="projects-grid">
+      {projects.map(p => (
+        <div class="project-item" data-tags={p.data.tags.join(',')}>
+          <ProjectCard
+            slug={p.slug}
+            naslov={p.data.naslov}
+            avtor={p.data.avtor}
+            authorSlug={nameToSlug[p.data.avtor]}
+            datum={p.data.datum}
+            tags={p.data.tags}
+            opis={p.data.opis}
+            slika={p.data.slika}
+          />
+        </div>
+      ))}
+    </div>
+
+    <p id="no-results" class="hidden text-sm text-lab-muted mt-8">Ni projektov s to oznako.</p>
+  </div>
+</Base>
+
+<script>
+  const btns  = document.querySelectorAll<HTMLButtonElement>('.tag-btn');
+  const items = document.querySelectorAll<HTMLElement>('.project-item');
+  const none  = document.getElementById('no-results')!;
+
+  function setActive(tag: string) {
+    btns.forEach(b => {
+      const active = b.dataset.tag === tag;
+      b.classList.toggle('border-lab-orange', active);
+      b.classList.toggle('bg-lab-orange',     active);
+      b.classList.toggle('text-black',        active);
+      b.classList.toggle('border-lab-border', !active);
+      b.classList.toggle('text-lab-muted',    !active);
+    });
+
+    let visible = 0;
+    items.forEach(el => {
+      const tags = el.dataset.tags?.split(',') ?? [];
+      const show = tag === 'vse' || tags.includes(tag);
+      el.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    none.classList.toggle('hidden', visible > 0);
+  }
+
+  btns.forEach(b => b.addEventListener('click', () => {
+    const tag = b.dataset.tag ?? 'vse';
+    history.replaceState(null, '', tag === 'vse' ? '/projekti' : `/projekti?tag=${encodeURIComponent(tag)}`);
+    setActive(tag);
+  }));
+
+  // Pre-select tag from URL on load
+  const urlTag = new URLSearchParams(location.search).get('tag');
+  if (urlTag) setActive(urlTag);
+</script>

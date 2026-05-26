@@ -1,0 +1,86 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import PrinterWidget from '../components/PrinterWidget.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const members = await getCollection('members');
+const nameToSlug = Object.fromEntries(members.map(m => [m.data.ime, m.slug]));
+
+const latest = allProjects
+  .sort((a, b) => b.data.datum.valueOf() - a.data.datum.valueOf())
+  .slice(0, 3);
+---
+
+<Base title="Domov">
+
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-4 pt-20 pb-16">
+    <div class="max-w-2xl">
+      <p class="text-xs uppercase tracking-widest text-lab-orange mb-4">Šolski center Kranj · SCKR</p>
+      <h1 class="text-5xl sm:text-6xl font-bold leading-none tracking-tight text-lab-text mb-6">
+        Mlad<span class="text-lab-orange">Lab</span>
+      </h1>
+      <p class="text-base text-lab-muted leading-relaxed mb-8">
+        Šolski makerspace pri Šolskem centru Kranj. Ustvarjamo, tiskamo, režemo, programiramo — skupaj.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href="/projekti" class="px-4 py-2 bg-lab-orange hover:bg-lab-orange2 text-black text-sm font-semibold rounded transition-colors">
+          Oglej si projekte
+        </a>
+        <a href="/o-nas" class="px-4 py-2 border border-lab-border hover:border-lab-orange text-lab-muted hover:text-lab-text text-sm rounded transition-colors">
+          O nas
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3D Farm live widget -->
+  <section class="max-w-6xl mx-auto px-4 mb-16">
+    <PrinterWidget />
+  </section>
+
+  <!-- Latest projects -->
+  <section class="max-w-6xl mx-auto px-4 pb-20">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-xs uppercase tracking-widest text-lab-muted">Najnovejši projekti</h2>
+      <a href="/projekti" class="text-xs text-lab-orange hover:text-lab-orange2 transition-colors">Vsi projekti →</a>
+    </div>
+    {latest.length === 0 && (
+      <p class="text-sm text-lab-muted">Še ni projektov.</p>
+    )}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {latest.map(p => (
+        <ProjectCard
+          slug={p.slug}
+          naslov={p.data.naslov}
+          avtor={p.data.avtor}
+          authorSlug={nameToSlug[p.data.avtor]}
+          datum={p.data.datum}
+          tags={p.data.tags}
+          opis={p.data.opis}
+          slika={p.data.slika}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- Stats strip -->
+  <section class="border-y border-lab-border bg-lab-surface py-10 mb-0">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+      {[
+        { n: '3+',   l: '3D tiskalniki'     },
+        { n: '1',    l: 'Laserski rezalnik'  },
+        { n: '10+',  l: 'Aktivnih članov'   },
+        { n: '2021', l: 'Leto ustanovitve'  },
+      ].map(({ n, l }) => (
+        <div>
+          <div class="text-3xl font-bold text-lab-orange">{n}</div>
+          <div class="text-xs text-lab-muted mt-1">{l}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+</Base>

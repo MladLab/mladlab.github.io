@@ -1,0 +1,36 @@
+---
+interface Props {
+  slug?: string;
+  ime: string;
+  vloga: string;
+  leto_od: number;
+  leto_do: number | null;
+  opis: string;
+  slika?: string;
+}
+
+const { slug, ime, vloga, leto_od, leto_do, opis, slika } = Astro.props;
+
+const initials = ime.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase();
+const href = slug ? `/clani/${slug}` : undefined;
+---
+
+<a
+  href={href}
+  class={`bg-lab-surface border border-lab-border rounded p-4 flex gap-4 items-start transition-colors group ${href ? 'hover:border-lab-orange cursor-pointer' : 'cursor-default'}`}
+>
+  <div class="shrink-0 w-14 h-14 rounded overflow-hidden bg-lab-edge flex items-center justify-center">
+    {slika
+      ? <img src={slika} alt={ime} class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy" />
+      : <span class="text-lab-orange font-bold text-lg">{initials}</span>
+    }
+  </div>
+  <div class="flex flex-col gap-1 min-w-0">
+    <h3 class="font-semibold text-lab-text group-hover:text-lab-orange transition-colors leading-tight">{ime}</h3>
+    <div class="flex flex-wrap items-center gap-2 text-xs">
+      <span class="text-lab-orange">{vloga}</span>
+      <span class="text-lab-muted">{leto_od}–{leto_do ?? 'danes'}</span>
+    </div>
+    <p class="text-xs text-lab-muted mt-0.5 line-clamp-2">{opis}</p>
+  </div>
+</a>

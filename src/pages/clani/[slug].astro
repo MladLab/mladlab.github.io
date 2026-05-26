@@ -1,0 +1,84 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const members = await getCollection('members');
+  return members.map(m => ({ params: { slug: m.slug }, props: { member: m } }));
+}
+
+const { member } = Astro.props;
+const { Content } = await member.render();
+
+const allProjects = await getCollection('projects');
+const memberProjects = allProjects
+  .filter(p => p.data.avtor === member.data.ime)
+  .sort((a, b) => b.data.datum.valueOf() - a.data.datum.valueOf());
+
+const statusLabel = member.data.status === 'current' ? 'Aktiven/-na' : 'Alumni';
+---
+
+<Base title={member.data.ime}>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
+    <a href="/clani" class="text-xs text-lab-muted hover:text-lab-orange transition-colors mb-8 inline-block">← Vsi člani</a>
+
+    <!-- Profile -->
+    <div class="flex gap-6 items-start mb-10">
+      <div class="shrink-0 w-20 h-20 rounded bg-lab-edge flex items-center justify-center overflow-hidden">
+        {member.data.slika
+          ? <img src={member.data.slika} alt={member.data.ime} class="w-full h-full object-cover" />
+          : <span class="text-lab-orange font-bold text-2xl">
+              {member.data.ime.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()}
+            </span>
+        }
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-lab-text mb-1">{member.data.ime}</h1>
+        <div class="flex flex-wrap gap-3 text-xs mb-3">
+          <span class="text-lab-orange">{member.data.vloga}</span>
+          <span class="text-lab-muted">{member.data.leto_od}–{member.data.leto_do ?? 'danes'}</span>
+          <span class={`px-1.5 py-0.5 rounded-sm border text-xs ${
+            member.data.status === 'current'
+              ? 'border-green-800 text-green-500 bg-green-950/30'
+              : 'border-lab-border text-lab-muted'
+          }`}>{statusLabel}</span>
+        </div>
+        <p class="text-sm text-lab-muted">{member.data.opis}</p>
+      </div>
+    </div>
+
+    <!-- Bio content -->
+    <div class="prose prose-invert prose-sm max-w-none text-lab-muted leading-relaxed mb-12
+      [&_h2]:text-lab-text [&_h2]:font-semibold [&_h2]:text-base [&_h2]:mt-6 [&_h2]:mb-2
+      [&_a]:text-lab-orange [&_strong]:text-lab-text
+    ">
+      <Content />
+    </div>
+
+    <!-- Their projects -->
+    <section>
+      <h2 class="text-xs uppercase tracking-widest text-lab-muted mb-4">
+        Projekti ({memberProjects.length})
+      </h2>
+      {memberProjects.length === 0 && (
+        <p class="text-sm text-lab-muted">Še ni projektov.</p>
+      )}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {memberProjects.map(p => (
+          <ProjectCard
+            slug={p.slug}
+            naslov={p.data.naslov}
+            avtor={p.data.avtor}
+            datum={p.data.datum}
+            tags={p.data.tags}
+            opis={p.data.opis}
+            slika={p.data.slika}
+          />
+        ))}
+      </div>
+    </section>
+
+  </div>
+</Base>
