@@ -2,6 +2,7 @@
 ime: "Bambu Lab X1C"
 tip: "3D tiskalnik (FDM)"
 status: "aktivno"
+slika: "/stroji/x1c.jpg"
 opis: "Visokohitrostni tiskalnik z AMS sistemom za večmaterialni tisk. Primeren za zahtevne projekte."
 specifikacije:
   "Volumen tiska": "256 × 256 × 256 mm"

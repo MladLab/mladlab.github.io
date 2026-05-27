@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="sl"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="MladLab — šolski makerspace pri Šolskem centru Kranj"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"><title>Kovinski rastlinjak · MladLab</title><link rel="stylesheet" href="/_astro/clani.DJXObfVA.css"><script type="module" src="/_astro/hoisted.C1vzkJPm.js"></script></head> <body class="bg-lab-bg text-lab-text font-mono min-h-screen flex flex-col antialiased"> <header class="border-b border-lab-border bg-lab-surface sticky top-0 z-50"> <nav class="max-w-6xl mx-auto px-4 flex items-center justify-between h-14"> <a href="/" class="flex items-center gap-2.5 group"> <span class="bg-lab-orange text-black font-bold text-sm px-1.5 py-0.5 rounded-sm group-hover:bg-lab-orange2 transition-colors">ML</span> <span class="font-semibold tracking-tight text-lab-text">MladLab</span> </a> <ul class="hidden sm:flex items-center gap-1"> <li> <a href="/" class="px-3 py-1.5 text-sm rounded transition-colors text-lab-muted hover:text-lab-text hover:bg-lab-edge"> Domov </a> </li><li> <a href="/projekti" class="px-3 py-1.5 text-sm rounded transition-colors text-lab-orange bg-lab-edge"> Projekti </a> </li><li> <a href="/stroji" class="px-3 py-1.5 text-sm rounded transition-colors text-lab-muted hover:text-lab-text hover:bg-lab-edge"> Stroji </a> </li><li> <a href="/clani" class="px-3 py-1.5 text-sm rounded transition-colors text-lab-muted hover:text-lab-text hover:bg-lab-edge"> Člani </a> </li><li> <a href="/o-nas" class="px-3 py-1.5 text-sm rounded transition-colors text-lab-muted hover:text-lab-text hover:bg-lab-edge"> O nas </a> </li> </ul> <button id="menu-toggle" class="sm:hidden text-lab-muted hover:text-lab-text p-1" aria-label="Meni"> <svg id="icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg> <svg id="icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> </button> </nav> <div id="mobile-menu" class="sm:hidden hidden border-t border-lab-border"> <ul class="flex flex-col px-4 py-2 gap-1"> <li> <a href="/" class="block px-3 py-2 text-sm rounded transition-colors text-lab-muted hover:text-lab-text hover:bg-lab-edge"> Domov </a> </li><li> <a href="/projekti" class="block px-3 py-2 text-sm rounded transition-colors text-lab-orange bg-lab-edge"> Projekti </a> </li><li> <a href="/stroji" class="block px-3 py-2 text-sm rounded transition-colors text-lab-muted hover:text-lab-text hover:bg-lab-edge"> Stroji </a> </li><li> <a href="/clani" class="block px-3 py-2 text-sm rounded transition-colors text-lab-muted hover:text-lab-text hover:bg-lab-edge"> Člani </a> </li><li> <a href="/o-nas" class="block px-3 py-2 text-sm rounded transition-colors text-lab-muted hover:text-lab-text hover:bg-lab-edge"> O nas </a> </li> </ul> </div> </header>  <main class="flex-1">  <div class="max-w-3xl mx-auto px-4 py-12"> <!-- Back --> <a href="/projekti" class="text-xs text-lab-muted hover:text-lab-orange transition-colors mb-8 inline-block">← Vsi projekti</a> <!-- Header --> <header class="mb-8"> <div class="flex flex-wrap gap-1 mb-3"> <a href="/projekti?tag=konstrukcija" class="text-xs px-1.5 py-0.5 rounded-sm bg-lab-edge text-lab-muted border border-lab-border hover:border-lab-orange hover:text-lab-text transition-colors"> konstrukcija </a><a href="/projekti?tag=varjenje" class="text-xs px-1.5 py-0.5 rounded-sm bg-lab-edge text-lab-muted border border-lab-border hover:border-lab-orange hover:text-lab-text transition-colors"> varjenje </a><a href="/projekti?tag=CAD" class="text-xs px-1.5 py-0.5 rounded-sm bg-lab-edge text-lab-muted border border-lab-border hover:border-lab-orange hover:text-lab-text transition-colors"> CAD </a><a href="/projekti?tag=kovinarstvo" class="text-xs px-1.5 py-0.5 rounded-sm bg-lab-edge text-lab-muted border border-lab-border hover:border-lab-orange hover:text-lab-text transition-colors"> kovinarstvo </a><a href="/projekti?tag=rastlinjak" class="text-xs px-1.5 py-0.5 rounded-sm bg-lab-edge text-lab-muted border border-lab-border hover:border-lab-orange hover:text-lab-text transition-colors"> rastlinjak </a><a href="/projekti?tag=avtomatizacija" class="text-xs px-1.5 py-0.5 rounded-sm bg-lab-edge text-lab-muted border border-lab-border hover:border-lab-orange hover:text-lab-text transition-colors"> avtomatizacija </a><a href="/projekti?tag=elektronika" class="text-xs px-1.5 py-0.5 rounded-sm bg-lab-edge text-lab-muted border border-lab-border hover:border-lab-orange hover:text-lab-text transition-colors"> elektronika </a><a href="/projekti?tag=ESP32" class="text-xs px-1.5 py-0.5 rounded-sm bg-lab-edge text-lab-muted border border-lab-border hover:border-lab-orange hover:text-lab-text transition-colors"> ESP32 </a><a href="/projekti?tag=LoRaWAN" class="text-xs px-1.5 py-0.5 rounded-sm bg-lab-edge text-lab-muted border border-lab-border hover:border-lab-orange hover:text-lab-text transition-colors"> LoRaWAN </a><a href="/projekti?tag=IoT" class="text-xs px-1.5 py-0.5 rounded-sm bg-lab-edge text-lab-muted border border-lab-border hover:border-lab-orange hover:text-lab-text transition-colors"> IoT </a> </div> <h1 class="text-3xl font-bold text-lab-text mb-4">Kovinski rastlinjak</h1> <div class="flex flex-wrap gap-6 text-xs text-lab-muted"> <div> <span class="text-lab-orange mr-1">Avtor</span> <a href="/clani/rok-mohoric" class="hover:text-lab-text transition-colors">Rok Mohorič</a> </div> <div> <span class="text-lab-orange mr-1">Datum</span> 27. 5. 2026 </div> </div> </header> <!-- Hero image --> <div class="mb-8 rounded-lg overflow-hidden border border-lab-border"> <img src="/projekti/rastlinjak/rastlinjak-cover.png" alt="Kovinski rastlinjak" class="w-full object-cover max-h-96"> </div> <!-- Machines used --> <div class="flex flex-wrap gap-2 mb-8 p-3 bg-lab-surface border border-lab-border rounded"> <span class="text-xs text-lab-muted mr-1">Stroji:</span> <span class="text-xs text-lab-muted">Varilni aparat</span><span class="text-xs text-lab-muted">Kotni brusilnik</span><span class="text-xs text-lab-muted">Vrtalni stroj</span><span class="text-xs text-lab-muted">ESP32</span><span class="text-xs text-lab-muted">LoRa modul</span><span class="text-xs text-lab-muted">Servo motor</span><span class="text-xs text-lab-muted">Vodna črpalka</span> </div> <!-- Content --> <div class="prose prose-invert prose-sm max-w-none text-lab-muted leading-relaxed
+      [&_h2]:text-lab-text [&_h2]:font-semibold [&_h2]:text-base [&_h2]:mt-8 [&_h2]:mb-2
+      [&_h3]:text-lab-text [&_h3]:font-semibold [&_h3]:text-sm [&_h3]:mt-6 [&_h3]:mb-1
+      [&_a]:text-lab-orange [&_a:hover]:text-lab-orange2
+      [&_strong]:text-lab-text
+      [&_li]:marker:text-lab-orange
+      [&_code]:bg-lab-edge [&_code]:px-1 [&_code]:rounded [&_code]:text-xs [&_code]:text-lab-text
+    "> <p>Kovinski rastlinjak je projekt, ki sem ga zasnoval in izdelal samostojno v okviru šolskega Fab Laba. Gre za jekleno konstrukcijo dimenzij 6000×4000×1900 mm s trikotno streho, katere sleme seže 400 mm nad vrh sten. Poleg same konstrukcije projekt vključuje avtomatizacijo — samodejno prezračevanje in zalivanje ter upravljanje na daljavo prek mobilnega telefona po omrežju <strong>LoRaWAN</strong>.</p>
+<p>Celoten projekt sem zasnoval sam — od ideje in izračunov do tehničnih načrtov, montaže, elektronike in programiranja.</p>
+<h2 id="opis-projekta">Opis projekta</h2>
+<ul>
+<li><strong>Konstrukcija:</strong> jekleni okvir iz kvadratnih cevi 50×50×3 mm (navpične cevi in okvir) ter 20×20×2 mm (vodoravne palice)</li>
+<li><strong>Dimenzije:</strong> 6000×4000 mm tloris, višina sten 1900 mm, sleme strehe +400 mm</li>
+<li><strong>Streha:</strong> trikotna oblika z dvokapno streho, odpirajoči paneli na obeh straneh slemena za prezračevanje</li>
+<li><strong>Vrata:</strong> dvodelna vrata 800×1750 mm na sredini sprednje stranice (4000 mm)</li>
+<li><strong>Avtomatizacija:</strong> samodejno prezračevanje in zalivanje, krmiljeno z ESP32 prek LoRaWAN omrežja</li>
+<li><strong>Upravljanje na daljavo:</strong> odpiranje/zapiranje panelov in vklop zalivanja prek mobilnega telefona</li>
+</ul>
+<h2 id="tehnični-podatki-konstrukcije">Tehnični podatki konstrukcije</h2>
+<ul>
+<li><strong>Navpične cevi 50×50:</strong> 4 cevi vzdolž stranic 6000 mm (razmak 2000 mm), 2 cevi vzdolž stranic 4000 mm (samo kotni)</li>
+<li><strong>Vodoravne palice 20×20:</strong> 2 palici na vsaki stranici, na višinah 650 mm in 1300 mm</li>
+<li><strong>Luknje za palice:</strong> na 25 mm od roba, razmak med luknjami 2000 mm</li>
+<li><strong>Špirovci strehe:</strong> dolžina 2040 mm, kot α = 11,3°</li>
+<li><strong>Skupno jeklo:</strong> 22 navpičnih cevi, 2 odpirajoca strešna panela</li>
+</ul>
+<h2 id="avtomatsko-prezračevanje--strešni-paneli">Avtomatsko prezračevanje — strešni paneli</h2>
+<p>Oba strešna panela se odpirati in zapirata samodejno glede na temperaturo znotraj rastlinjaka, po potrebi pa ju lahko ročno upravljamo tudi prek telefona.</p>
+<h3 id="kako-deluje">Kako deluje</h3>
+<p>Temperaturni senzor <strong>DHT22</strong> meri temperaturo in vlago zraka znotraj rastlinjaka. Ko temperatura preseže nastavljeno mejo (npr. 28 °C), ESP32 pošlje signal servo motorju, ki potisne panel odprt. Hkrati ESP32 prek <strong>LoRa modula</strong> pošlje sporočilo na telefon z obvestilom o stanju. Uporabnik lahko kadar koli ročno odpre ali zapre panel prek mobilne aplikacije — ukaz potuje prek LoRaWAN omrežja do ESP32, ki ga izvede.</p>
+<h3 id="komponente-prezračevanja">Komponente prezračevanja</h3>
+<ul>
+<li><strong>ESP32</strong> — osrednji krmilnik, programiran v Arduino IDE</li>
+<li><strong>LoRa modul (SX1276 / TTGO LoRa32)</strong> — brezžična komunikacija na dolge razdalje brez mobilnega omrežja</li>
+<li><strong>LoRaWAN gateway</strong> — vmesnik med LoRa modulom in internetom (TTN — The Things Network)</li>
+<li><strong>DHT22</strong> — senzor temperature in relativne vlage</li>
+<li><strong>Servo motor (2×)</strong> — eden za vsak strešni panel</li>
+<li><strong>Mobilna aplikacija</strong> — prikaz podatkov in upravljanje panelov na daljavo</li>
+</ul>
+<h3 id="potek-delovanja-prezračevanja">Potek delovanja prezračevanja</h3>
+<ol>
+<li>DHT22 izmeri temperaturo vsakih 10 sekund</li>
+<li>ESP32 primerja vrednost z nastavljenim pragom</li>
+<li>Če je preveč vroče → servo odpre panel, na telefon pride obvestilo prek LoRaWAN</li>
+<li>Ko se ohladi → servo samodejno zapre panel</li>
+<li>Uporabnik lahko <strong>kadar koli prek telefona</strong> ročno odpre ali zapre panel ne glede na temperaturo</li>
+<li>Trenutno stanje (temperatura, vlaga, položaj panelov) je vidno v aplikaciji v realnem času</li>
+</ol>
+<h2 id="avtomatsko-zalivanje">Avtomatsko zalivanje</h2>
+<p>Sistem samodejno zalije rastline, ko senzor zazna presuho zemljo. Zalivanje je mogoče sprožiti ali ustaviti tudi ročno prek telefona.</p>
+<h3 id="kako-deluje-1">Kako deluje</h3>
+<p>Senzorji vlage tal <strong>capacitive soil moisture sensor</strong> so vkopani v zemljo pri rastlinah. Ko vlaga pade pod nastavljeno vrednost, ESP32 vklopi vodno črpalko prek relejnega modula. Ko je zemlja dovolj namočena, se črpalka samodejno izklopi. Prek LoRaWAN omrežja uporabnik vidi vlago tal v realnem času in lahko zalivanje sproži ali ustavi ročno s telefonom.</p>
+<h3 id="komponente-zalivanja">Komponente zalivanja</h3>
+<ul>
+<li><strong>ESP32</strong> — isti krmilnik kot za prezračevanje</li>
+<li><strong>LoRa modul</strong> — skupna komunikacija za oba sistema</li>
+<li><strong>Capacitive soil moisture sensor (2–4×)</strong> — senzorji vlage tal, razporejeni po rastlinjaku</li>
+<li><strong>Vodna črpalka 12V</strong> — potopna ali peristaltična črpalka</li>
+<li><strong>Relijski modul</strong> — za vklop/izklop črpalke</li>
+<li><strong>Cevi in razdelilec</strong> — distribucija vode po rastlinjaku</li>
+<li><strong>Rezervoar za vodo</strong> — posoda z vodo (zbrana deževnica ali vodovod)</li>
+</ul>
+<h3 id="potek-delovanja-zalivanja">Potek delovanja zalivanja</h3>
+<ol>
+<li>Senzorji vlage tal merijo vlažnost vsakih 30 sekund</li>
+<li>ESP32 prebere vrednosti in jih pošlje prek LoRaWAN na telefon</li>
+<li>Če je zemlja presuha → relay vklopi črpalko, na telefon pride obvestilo</li>
+<li>Črpalka teče določen čas ali dokler senzor ne zazna zadostne vlage</li>
+<li>Uporabnik lahko <strong>ročno prek telefona</strong> vklopi ali izklopi zalivanje kadarkoli</li>
+</ol>
+<h2 id="komunikacija--lorawan-omrežje">Komunikacija — LoRaWAN omrežje</h2>
+<p>LoRaWAN (Long Range Wide Area Network) je brezžično omrežje, ki omogoča komunikacijo na razdalji več kilometrov z zelo nizko porabo energije — idealno za rastlinjak na vrtu, ki je morda oddaljen od Wi-Fi signala.</p>
+<h3 id="kako-je-sistem-povezan">Kako je sistem povezan</h3>
+<ul>
+<li><strong>ESP32</strong> zbira podatke senzorjev in krmili aktuatorje</li>
+<li><strong>LoRa modul</strong> pošilja podatke brezžično do gatewaya</li>
+<li><strong>Gateway</strong> posreduje podatke na internet prek TTN (The Things Network) — brezplačna LoRaWAN infrastruktura</li>
+<li><strong>Mobilna aplikacija</strong> prikazuje podatke v realnem času in pošilja ukaze nazaj do ESP32</li>
+</ul>
+<h2 id="skupna-elektronska-shema">Skupna elektronska shema</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Komponenta</th><th>Priključek na ESP32</th><th>Napajanje</th></tr></thead><tbody><tr><td>DHT22 (temperatura/vlaga)</td><td>GPIO digitalni pin</td><td>3.3V</td></tr><tr><td>Soil moisture sensor (×4)</td><td>GPIO analogni pin</td><td>3.3V</td></tr><tr><td>Servo motor panel 1</td><td>GPIO PWM pin</td><td>5V</td></tr><tr><td>Servo motor panel 2</td><td>GPIO PWM pin</td><td>5V</td></tr><tr><td>Relay modul (črpalka)</td><td>GPIO digitalni pin</td><td>5V signal / 12V izhod</td></tr><tr><td>LoRa modul SX1276</td><td>SPI (MOSI/MISO/SCK/CS)</td><td>3.3V</td></tr><tr><td>Vodna črpalka</td><td>Preko releja</td><td>12V</td></tr></tbody></table>
+<h2 id="potek-dela">Potek dela</h2>
+<ol>
+<li><strong>Načrtovanje</strong> — izračun vseh mer, razporeditve cevi in pozicij lukenj</li>
+<li><strong>CAD modeliranje</strong> — 3D model v Fusion 360</li>
+<li><strong>Tehnični načrti</strong> — tloris, naris, stranski ris in načrt strehe (PDF, A3, M 1:20)</li>
+<li><strong>Priprava materiala</strong> — rezanje cevi na mere, vrtanje lukenj</li>
+<li><strong>Varjenje</strong> — sestavljanje okvirja, privaritev navpičnih cevi, montaža palice</li>
+<li><strong>Streha</strong> — montaža trikotnih čel, slemena in odpirajočih panelov</li>
+<li><strong>Elektronika</strong> — namestitev senzorjev, serv in črpalke, vezava na ESP32 in LoRa modul</li>
+<li><strong>Programiranje</strong> — koda za avtomatsko prezračevanje, zalivanje in LoRaWAN komunikacijo</li>
+<li><strong>Testiranje</strong> — kalibracija senzorjev, nastavitev pragov, testiranje dosega LoRa signala</li>
+</ol>
+<h2 id="prihodnji-razvoj">Prihodnji razvoj</h2>
+<ul>
+<li>avtomatski zajem deževnice z usmerjanjem s strehe v rezervoar,</li>
+<li>solarne celice za napajanje celotnega sistema,</li>
+<li>dodatni senzorji (CO₂, svetloba) za optimizacijo pogojev rasti,</li>
+<li>lastna mobilna aplikacija z zgodovino podatkov in grafi.</li>
+</ul>
+<h2 id="orodja-in-tehnologije">Orodja in tehnologije</h2>
+<p>Pri projektu sem uporabil:</p>
+<ul>
+<li><strong>Fusion 360</strong> za 3D CAD modeliranje konstrukcije,</li>
+<li><strong>Python / ReportLab</strong> za generiranje tehničnih načrtov v PDF formatu,</li>
+<li><strong>Arduino IDE</strong> za programiranje ESP32 krmilnika,</li>
+<li><strong>TTN (The Things Network)</strong> za LoRaWAN infrastrukturo in posredovanje podatkov,</li>
+<li><strong>varilni aparat</strong> za spajanje jeklenih cevi,</li>
+<li><strong>kotni brusilnik</strong> za rezanje in obdelavo materiala,</li>
+<li><strong>vrtalni stroj</strong> za luknje v ceveh 50×50 mm.</li>
+</ul>
+<p>Projekt združuje znanje iz kovinarstva, načrtovanja konstrukcij, CAD modeliranja, tehničnega risanja, elektronike, brezžičnih komunikacij in programiranja.</p>
+<h2 id="rastlinjak-predstavlja-mojo-strast-do-gradnje-in-praktičnega-dela-ter-dokazuje-da-je-z-natančnim-načrtovanjem-in-vztrajnostjo-mogoče-samostojno-zasnovati-in-zgraditi-funkcionalno-jekleno-konstrukcijo-z-vgrajeno-avtomatizacijo-in-upravljanjem-na-daljavo-prek-lorawan-omrežja">Rastlinjak predstavlja mojo strast do gradnje in praktičnega dela ter dokazuje, da je z natančnim načrtovanjem in vztrajnostjo mogoče samostojno zasnovati in zgraditi funkcionalno jekleno konstrukcijo z vgrajeno avtomatizacijo in upravljanjem na daljavo prek LoRaWAN omrežja.</h2> </div> <!-- Gallery --> <div class="mt-10 border-t border-lab-border pt-8"> <h2 class="text-xs uppercase tracking-widest text-lab-muted mb-4">Galerija</h2> <div class="grid grid-cols-3 gap-2"> <button class="rounded overflow-hidden border border-lab-border aspect-square cursor-zoom-in hover:border-lab-orange transition-colors" data-lightbox="/projekti/rastlinjak/rastlinjak-cover.png"> <img src="/projekti/rastlinjak/rastlinjak-cover.png" alt="Kovinski rastlinjak" class="w-full h-full object-cover"> </button> </div> </div> </div>  </main> <footer class="border-t border-lab-border bg-lab-surface mt-16"> <div class="max-w-6xl mx-auto px-4 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-lab-muted"> <div class="flex items-center gap-2"> <span class="bg-lab-orange text-black font-bold px-1 py-0.5 rounded-sm text-xs">ML</span> <span>MladLab · Šolski center Kranj</span> </div> <span>© 2026 MladLab — vse pravice pridržane</span> </div> </footer> </body></html> <!-- Lightbox --> <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 p-4" role="dialog" aria-modal="true"> <button id="lightbox-close" class="absolute top-4 right-5 text-white/60 hover:text-white text-2xl leading-none">✕</button> <img id="lightbox-img" src="" alt="" class="max-w-full max-h-full object-contain rounded"> </div> 
