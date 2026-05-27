@@ -29,10 +29,11 @@ Pri programu sem dodal konfiguracijske argumente:
 ## Link do programa in dodatnega opisa
 
 - [Github](https://github.com/konacoded/Konata-Dancer-Remake/releases/tag/development-release)
-- [konacode software](https://software.konacode.com/#konata-dev)
+- [Moji strani programov](https://software.konacode.com/#konata-dev)
 
 Program trenutno še nima zgrajene executable datoteke za Windows
 možne so alternative, kot:
  - [V1 branch](https://github.com/konacoded/Konata-Dancer-Remake/releases/tag/Konata-Dancer-Remake)
  - [Original](https://www.moddb.com/groups/anime-fans-of-moddb/downloads/konata-desktop-dancer)
+
 vendar ne podpirajo argumentov navedenih pod `Dodatne funkcionalnosti`

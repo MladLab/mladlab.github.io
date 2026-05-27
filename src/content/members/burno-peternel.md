@@ -4,7 +4,7 @@ vloga: "član"
 status: "current"
 leto_od: 2025
 leto_do: null
-opis: "Programski guru, C ljubitelj."
+opis: "C++ entuziast"
 ---
 
-Bruno rad dela s C.
+Najraje razvijam v low-level jezikih ter API-jih, kot C++ in Vulkan.
