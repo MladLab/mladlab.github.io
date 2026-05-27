@@ -146,28 +146,14 @@ declare module 'astro:content' {
   slug: "bambu-x1c";
   body: string;
   collection: "machines";
-  data: InferEntrySchema<"machines">
-} & { render(): Render[".md"] };
-"cnc-rezkalnik.md": {
-	id: "cnc-rezkalnik.md";
-  slug: "cnc-rezkalnik";
-  body: string;
-  collection: "machines";
-  data: InferEntrySchema<"machines">
+  data: any
 } & { render(): Render[".md"] };
 "laserski-rezalnik.md": {
 	id: "laserski-rezalnik.md";
   slug: "laserski-rezalnik";
   body: string;
   collection: "machines";
-  data: InferEntrySchema<"machines">
-} & { render(): Render[".md"] };
-"prusa-mk4s.md": {
-	id: "prusa-mk4s.md";
-  slug: "prusa-mk4s";
-  body: string;
-  collection: "machines";
-  data: InferEntrySchema<"machines">
+  data: any
 } & { render(): Render[".md"] };
 };
 "members": {
@@ -176,70 +162,70 @@ declare module 'astro:content' {
   slug: "blaz-krizisnik";
   body: string;
   collection: "members";
-  data: InferEntrySchema<"members">
+  data: any
 } & { render(): Render[".md"] };
 "burno-peternel.md": {
 	id: "burno-peternel.md";
   slug: "burno-peternel";
   body: string;
   collection: "members";
-  data: InferEntrySchema<"members">
+  data: any
 } & { render(): Render[".md"] };
 "lev-polenec.md": {
 	id: "lev-polenec.md";
   slug: "lev-polenec";
   body: string;
   collection: "members";
-  data: InferEntrySchema<"members">
+  data: any
 } & { render(): Render[".md"] };
 "luka-colaric.md": {
 	id: "luka-colaric.md";
   slug: "luka-colaric";
   body: string;
   collection: "members";
-  data: InferEntrySchema<"members">
+  data: any
 } & { render(): Render[".md"] };
 "luka-van-treven.md": {
 	id: "luka-van-treven.md";
   slug: "luka-van-treven";
   body: string;
   collection: "members";
-  data: InferEntrySchema<"members">
+  data: any
 } & { render(): Render[".md"] };
 "marcel-stefe.md": {
 	id: "marcel-stefe.md";
   slug: "marcel-stefe";
   body: string;
   collection: "members";
-  data: InferEntrySchema<"members">
+  data: any
 } & { render(): Render[".md"] };
 "matic-rzek.md": {
 	id: "matic-rzek.md";
   slug: "matic-rzek";
   body: string;
   collection: "members";
-  data: InferEntrySchema<"members">
+  data: any
 } & { render(): Render[".md"] };
 "nace-kepa.md": {
 	id: "nace-kepa.md";
   slug: "nace-kepa";
   body: string;
   collection: "members";
-  data: InferEntrySchema<"members">
+  data: any
 } & { render(): Render[".md"] };
 "rok-mohoric.md": {
 	id: "rok-mohoric.md";
   slug: "rok-mohoric";
   body: string;
   collection: "members";
-  data: InferEntrySchema<"members">
+  data: any
 } & { render(): Render[".md"] };
 "tomaz-mocnik.md": {
 	id: "tomaz-mocnik.md";
   slug: "tomaz-mocnik";
   body: string;
   collection: "members";
-  data: InferEntrySchema<"members">
+  data: any
 } & { render(): Render[".md"] };
 };
 "projects": {
@@ -248,86 +234,79 @@ declare module 'astro:content' {
   slug: "3d-sola";
   body: string;
   collection: "projects";
-  data: InferEntrySchema<"projects">
+  data: any
 } & { render(): Render[".md"] };
 "aerovis.md": {
 	id: "aerovis.md";
   slug: "aerovis";
   body: string;
   collection: "projects";
-  data: InferEntrySchema<"projects">
+  data: any
 } & { render(): Render[".md"] };
 "bambuddy.md": {
 	id: "bambuddy.md";
   slug: "bambuddy";
   body: string;
   collection: "projects";
-  data: InferEntrySchema<"projects">
+  data: any
 } & { render(): Render[".md"] };
 "cistilnik.md": {
 	id: "cistilnik.md";
   slug: "cistilnik";
   body: string;
   collection: "projects";
-  data: InferEntrySchema<"projects">
+  data: any
 } & { render(): Render[".md"] };
 "pametnihranilnik.md": {
 	id: "pametnihranilnik.md";
   slug: "pametnihranilnik";
   body: string;
   collection: "projects";
-  data: InferEntrySchema<"projects">
+  data: any
 } & { render(): Render[".md"] };
 "rastlinjak.md": {
 	id: "rastlinjak.md";
   slug: "rastlinjak";
   body: string;
   collection: "projects";
-  data: InferEntrySchema<"projects">
+  data: any
 } & { render(): Render[".md"] };
 };
 "tools": {
-"3d-pero.md": {
-	id: "3d-pero.md";
-  slug: "3d-pero";
-  body: string;
-  collection: "tools";
-  data: InferEntrySchema<"tools">
-} & { render(): Render[".md"] };
 "laboratorijski-napajalnik.md": {
 	id: "laboratorijski-napajalnik.md";
   slug: "laboratorijski-napajalnik";
   body: string;
   collection: "tools";
-  data: InferEntrySchema<"tools">
+  data: any
 } & { render(): Render[".md"] };
 "multimeter.md": {
 	id: "multimeter.md";
   slug: "multimeter";
   body: string;
   collection: "tools";
-  data: InferEntrySchema<"tools">
+  data: any
 } & { render(): Render[".md"] };
 "osciloskop.md": {
 	id: "osciloskop.md";
   slug: "osciloskop";
   body: string;
   collection: "tools";
-  data: InferEntrySchema<"tools">
+  data: any
 } & { render(): Render[".md"] };
 "spajkalna-postaja.md": {
 	id: "spajkalna-postaja.md";
   slug: "spajkalna-postaja";
   body: string;
   collection: "tools";
-  data: InferEntrySchema<"tools">
+  data: any
 } & { render(): Render[".md"] };
 "vrocetopilna-pistola.md": {
 	id: "vrocetopilna-pistola.md";
   slug: "vrocetopilna-pistola";
   body: string;
   collection: "tools";
-  data: InferEntrySchema<"tools">
+  data: any
 } & { render(): Render[".md"] };
 };
 
@@ -339,5 +318,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = typeof import("../../src/content/config.js");
+	export type ContentConfig = never;
 }
