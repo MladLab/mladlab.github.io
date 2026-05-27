@@ -236,6 +236,13 @@ declare module 'astro:content' {
   collection: "projects";
   data: any
 } & { render(): Render[".md"] };
+"Vulkan GIF Renderer.md": {
+	id: "Vulkan GIF Renderer.md";
+  slug: "vulkan-gif-renderer";
+  body: string;
+  collection: "projects";
+  data: any
+} & { render(): Render[".md"] };
 "aerovis.md": {
 	id: "aerovis.md";
   slug: "aerovis";
