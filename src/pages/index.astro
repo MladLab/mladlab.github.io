@@ -10,7 +10,7 @@ const nameToSlug = Object.fromEntries(members.map(m => [m.data.ime, m.slug]));
 
 const latest = allProjects
   .sort((a, b) => b.data.datum.valueOf() - a.data.datum.valueOf())
-  .slice(0, 3);
+  .slice(0, 12);
 ---
 
 <Base title="Domov">
