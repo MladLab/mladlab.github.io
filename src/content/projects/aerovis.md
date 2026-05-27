@@ -1,9 +1,9 @@
 ---
 naslov: "Namizni vetrni tunel - Aerovis"
 avtor:
-  - "Luka Colarič"
   - "Blaž Kržišnik"
   - "Marcel Štefe"
+  - "Luka Colarič"
 datum: 2026-05-27
 tags: ["aerodinamika", "programiranje", "CAD", "elektronika", "avtomobilizem"]
 stroji:

@@ -213,6 +213,20 @@ declare module 'astro:content' {
   collection: "members";
   data: InferEntrySchema<"members">
 } & { render(): Render[".md"] };
+"nace-kepa.md": {
+	id: "nace-kepa.md";
+  slug: "nace-kepa";
+  body: string;
+  collection: "members";
+  data: InferEntrySchema<"members">
+} & { render(): Render[".md"] };
+"rok-mohoric.md": {
+	id: "rok-mohoric.md";
+  slug: "rok-mohoric";
+  body: string;
+  collection: "members";
+  data: InferEntrySchema<"members">
+} & { render(): Render[".md"] };
 "tomaz-mocnik.md": {
 	id: "tomaz-mocnik.md";
   slug: "tomaz-mocnik";
@@ -232,6 +246,13 @@ declare module 'astro:content' {
 "aerovis.md": {
 	id: "aerovis.md";
   slug: "aerovis";
+  body: string;
+  collection: "projects";
+  data: InferEntrySchema<"projects">
+} & { render(): Render[".md"] };
+"pametnihranilnik.md": {
+	id: "pametnihranilnik.md";
+  slug: "pametnihranilnik";
   body: string;
   collection: "projects";
   data: InferEntrySchema<"projects">
