@@ -3,7 +3,7 @@ naslov: "Pametni šparovec"
 avtor:
   - "Nace Kepa"
 datum: 2026-05-27
-tags: ["elektronika", "programiranje", "Raspberry Pi", "varčevanje", "vgrajeni sistemi"]
+tags: ["elektronika", "IoT", "programiranje"]
 stroji:
   - "Raspberry Pi 3B"
   - "OLED Display"

@@ -3,7 +3,7 @@ naslov: "3D model Srednjega tehniškega centra Kranj"
 avtor:
   - "Lev Polenec"
 datum: 2026-05-27
-tags: ["3D model", "House Flipper 2", "arhitektura", "šola"]
+tags: ["arhitektura"]
 stroji: []
 slika: "/projekti/3dsola/sola (6).webp"
 galerija:

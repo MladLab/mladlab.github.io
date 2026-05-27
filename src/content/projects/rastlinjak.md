@@ -3,7 +3,7 @@ naslov: "Kovinski rastlinjak"
 avtor:
   - "Rok Mohorič"
 datum: 2026-05-27
-tags: ["konstrukcija", "varjenje", "CAD", "kovinarstvo", "rastlinjak", "avtomatizacija", "elektronika", "ESP32", "LoRaWAN", "IoT"]
+tags: ["avtomatizacija", "CAD", "elektronika", "IoT", "obdelava materialov"]
 stroji:
   - "Varilni aparat"
   - "Kotni brusilnik"

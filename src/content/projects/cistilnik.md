@@ -3,7 +3,7 @@ naslov: "Čistilec za SLM 3D tiskane dele"
 avtor:
   - "Tomaž Močnik"
 datum: 2026-05-27
-tags: ["SLM", "3D tisk", "elektronika", "obdelava materialov", "laserski razrez"]
+tags: ["3D tisk", "elektronika", "obdelava materialov"]
 stroji:
   - "xTool Laserski Rezalnik"
   - "orodje Makita"

@@ -5,7 +5,7 @@ avtor:
   - "Marcel Štefe"
   - "Luka Colarič"
 datum: 2026-05-27
-tags: ["aerodinamika", "programiranje", "CAD", "elektronika", "avtomobilizem"]
+tags: ["CAD", "elektronika", "programiranje"]
 stroji:
   - "M5Dial"
   - "3000 RPM Fan"
