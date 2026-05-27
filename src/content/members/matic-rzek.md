@@ -2,7 +2,7 @@
 ime: "Matic Ržek"
 vloga: "koordinator"
 status: "current"
-leto_od: 2021
+leto_od: 2019
 leto_do: null
 opis: "Ustanovni koordinator MladLab. Skrbi za delovanje prostora, naročanje materiala in mentorstvo novih članov."
 ---
