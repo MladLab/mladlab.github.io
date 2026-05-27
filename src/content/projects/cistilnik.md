@@ -8,7 +8,7 @@ stroji:
   - "xTool Laserski Rezalnik"
   - "orodje Makita"
   
-slika: "/projekti/cistilnik/cistilnik (7).jpg"
+slika: "/projekti/cistilnik/cistilnik (7).png"
 galerija:
   -  /projekti/cistilnik/cistilnik (1).jpg
   -  /projekti/cistilnik/cistilnik (2).jpg

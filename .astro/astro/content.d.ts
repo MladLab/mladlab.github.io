@@ -178,6 +178,13 @@ declare module 'astro:content' {
   collection: "members";
   data: InferEntrySchema<"members">
 } & { render(): Render[".md"] };
+"burno-peternel.md": {
+	id: "burno-peternel.md";
+  slug: "burno-peternel";
+  body: string;
+  collection: "members";
+  data: InferEntrySchema<"members">
+} & { render(): Render[".md"] };
 "lev-polenec.md": {
 	id: "lev-polenec.md";
   slug: "lev-polenec";

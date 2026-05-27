@@ -14,6 +14,7 @@ export default {
         'lab-orange2': '#ea0cb3',
       },
       fontFamily: {
+        sans: ['"Space Grotesk"', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'Consolas', 'ui-monospace', 'monospace'],
       },
     },

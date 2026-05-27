@@ -4,9 +4,18 @@ import MemberCard from '../components/MemberCard.astro';
 import { getCollection } from 'astro:content';
 
 const all     = await getCollection('members');
-const current = all.filter(m => m.data.status === 'current').sort((a, b) => a.data.leto_od - b.data.leto_od);
+
+
+  const current = all.filter(m => m.data.status === 'current').sort((a, b) => {
+  if (a.data.vloga === 'član' && b.data.vloga !== 'član') return 1;
+  if (a.data.vloga !== 'član' && b.data.vloga === 'član') return -1;
+  return a.data.leto_od - b.data.leto_od;
+});
+
 const alumni  = all.filter(m => m.data.status === 'alumni').sort((a, b) => (b.data.leto_do ?? 9999) - (a.data.leto_do ?? 9999));
----
+
+
+  ---
 
 <Base title="Člani">
   <div class="max-w-6xl mx-auto px-4 py-12">
